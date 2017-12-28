@@ -1,0 +1,13 @@
+This work presented \NAME, a theoretical framework for a correct integration of existing multi-valued model checkers and theorem provers. 
+Whenever the property of interest is definitely satisfied, or possibly satisfied, \NAME\ provides  information regarding why a certain result is returned by the model checker.
+The proof gives intuition on what is working correctly in the current design and insights for the next development rounds.
+We instantiate \NAME\ considering a PKS, to express the model of the system, and LTL, to specify the property of interest. 
+We show that the instantiation is feasible and sound, and requires changing the model checking algorithm to accomodate the execution of the theorem prover.
+\NAME\ has been evaluated considering a safety critical example~\cite{arcaini2015formal}, which showed  the effectiveness  of the approach. 
+We also discussed the applicability of the approach in real world cases.
+
+As future work, we aim to implement \NAME\ by integrating existing model checkers and theorem provers. 
+This  will allow us to provide further evidence of the impact of \NAME\ in continuous system development and to analyze the challenges of realistic systems.
+We would like to introduce possible extensions of the currently considered formalisms: other forms of partial systems models and other multi-valued logic options for the properties.
+Finally, we also wish to investigate thoroughly how the proofs can be written in the most understandable and useful form for the designer.
+

@@ -1,0 +1,101 @@
+\subsection{Adapting the theorem prover.}
+\label{sec:adapting}
+The deductive verification framework presented in~\cite{peled2001model}  exploits the product between a state labeled transition system and  a GBA \gba\ obtained by $\lnot\phi$ to generate the proof.
+To enable the algorithm to work on KSs and BAs, 
+we describe
+%it is necessary to specify
+ how to associate LTL formulae with each state of the BA and how to identify failed states of the product automaton.
+
+\vskip 0.05in  
+\textbf{Identification of the formulae that hold in the states of  the BA.}
+We assume that the degeneralization procedure~\cite{clarke1999model}, that converts the GBA  \gba\
+%$\mathcal{G}$ 
+ into an equivalent BA \ba\
+ %$\mathcal{A}$,
+  behaves as follows: when a new state $q$ of 
+  %$\mathcal{A}$
+  \ba\ is created from a state $q^\prime$ of 
+  \gba ,
+  %$\mathcal{G}$, 
+the formulae $\eta(q^\prime)$ and $\mu(q^\prime)$ are also associated to $q$.
+
+\vskip 0.05in  
+\textbf{Identification of failed states.} 
+Following the procedure mentioned in Section~\ref{sec:preliminaries}, the product automaton 
+%$M\otimes\mathcal{A}$
+$M\otimes \ba$
+ between the KS $M$ and the BA 
+ %$\mathcal{A}$ 
+\ba\ is modified to also generate \emph{failed states}.
+Specifically, the product is computed using the rules~\ref{eq:classicalTransition} and~\ref{eq:failedTransition}.
+%
+\vspace{-1cm}
+\begin{multicols}{2}
+\begin{equation}
+\label{eq:classicalTransition}
+ \inferrule{s\rightarrow t \land q \xrightarrow{L(t)}p}{\langle s,q \rangle \rightarrow \langle t,p \rangle}  
+\end{equation}\break
+\begin{equation}
+\label{eq:failedTransition}
+ \inferrule{s\rightarrow t \land q \xrightarrow{\cancel{L(t)}}p}{\langle s,q \rangle \dashrightarrow \langle t,p \rangle}  
+\end{equation}
+\end{multicols}
+%
+Rule~\ref{eq:classicalTransition} is the classical rule used to compute the product automaton. 
+It specifies that the state of the product $\langle s,q \rangle$  moves to $\langle t,p \rangle$ only if the transition $q \xrightarrow{L(t)}p$ that moves the BA from  $q$ to $p$ has the same label of the state $t$ of $M$.
+Rule~\ref{eq:failedTransition} specifies how to compute failed states.
+It states that the failed state $\langle t,p \rangle$ is generated in the product  when a transition  that moves the BA 
+%$\mathcal{A}$
+ \ba\ from $q$ to $p$ is labelled differently with respect to the state $t$ reached by the model $\mathcal{M}$ when the transition $s\rightarrow t$ is fired.
+This is indicated using the notation $q \xrightarrow{\cancel{L(t)}}p$.
+For this reason, the transition $\langle s,q \rangle \dashrightarrow \langle t,p \rangle$  from $\langle s,q \rangle $ to $\langle t,p \rangle$ is dashed.
+Let us consider the product presented in Figure~\ref{fig:productOpt}  computed from the KS $M_{opt}$ obtained from the PKS in Figure~\ref{fig:model} and the BA of Figure~\ref{fig:property}.
+The transition $\langle s_0, q_0 \rangle$ to  $\langle s_1, q_1 \rangle$ of the product presented in Figure~\ref{fig:productOpt} is dashed, since the proposition $\overline{g}$ is false in $s_1$, while the labeling of the transition from $q_0$ to $q_1$ requires $\overline{g}$ to be true for the transition to be performed.
+
+The set 
+%$\mathcal{F}(M\otimes\mathcal{A})$ 
+ $\mathcal{F}(M\otimes \ba)$ of the \emph{failed states} contains the states $\langle t, p \rangle$ obtained by applying rule~\ref{eq:failedTransition}.
+Note that, as stated in Section~\ref{sec:preliminaries}, each failed state $\langle s, q \rangle$ is such that $s \models \mu(q) $.
+For example, the state $\langle s_1, q_1 \rangle$ of the product  presented in Figure~\ref{fig:productOpt} is a failed state.
+Indeed, $s_1$ satisfies the property $\mu(q_1)= g \LTLor \LTLnext \LTLfinally g$ associated with the state $q_1$.
+
+
+
+%%%%%%%%%%%%%%
+\begin{theorem}
+\label{th:deductivecorrecteness}
+The deductive verification procedure is correct.
+\end{theorem}
+
+\begin{proof}
+We show that the states identified as \emph{failed}  correspond to the ones that would be identified using~\cite{peled2001model}. 
+In~\cite{peled2001model}, a state $\langle t, p \rangle$ is failed if the propositional assignment of $t$ does not satisfy the conditions specified in the state $p$. 
+It is well known~\cite{gerth1996ltl2ba,clarke1999model}, that a GBA \gba\ associated with $\phi$ is such that
+\begin{enumerate*}[label={(\arabic*)}]
+\item all the transitions $(q,\alpha, p) \in \Delta$ that reach a state $p$ of the GBA have the same label $\alpha$ and that
+\item a transition $(q,\alpha, p) \in \Delta$ is in the GBA  if and only if $\alpha$ satisfies the conjunction of the negated and non negated propositions that hold in the state $p$.
+\end{enumerate*}
+By construction, the latter of these properties also holds in the BA obtained from the GBA by applying the degeneralization procedure~\cite{clarke1999model}.
+Thus, since all the transitions that reach $p$ are labelled with $\alpha$, a transition $\langle s,q \rangle \dashrightarrow' \langle t,p \rangle$ is added to the product automaton if and only if the propositional assignment of $t$ does not satisfy the propositional assignment specified in the state $p$. 
+Furthermore, BAs acceptance condition is a special case of fairness condition used in~\cite{peled2001model}. 
+Thus, the proposed deductive verification procedure is a special case of~\cite{peled2001model}, with regard to acceptance.\qed
+\end{proof}
+
+\begin{figure}[t]
+\begin{minipage}[b]{.5\textwidth}
+  \begin{figure}[H]
+\centering
+\input{images/productOpt_2.tex}
+\caption{Product $I_{opt}=M_{opt}\otimes\mathcal{A}_{\lnot\phi_2}$}
+\label{fig:productOpt}
+ \end{figure}
+\end{minipage}%
+\begin{minipage}[b]{.5\textwidth}
+  \begin{figure}[H]
+\centering
+\input{images/productPes_2.tex}
+\caption{Product $I_{pes}=M_{pes}\otimes\mathcal{A}_{\lnot\phi_2}$}
+\label{fig:productPess}
+ \end{figure}
+\end{minipage}%
+\end{figure}

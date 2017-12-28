@@ -1,0 +1,27 @@
+\begin{tikzpicture}[scale=0.33] %[x={10.0pt},y={10.0pt}]
+
+\node[state, initial, initial text={}] (q_0) 
+[label={
+[align=left,yshift=-0.1cm]
+below:
+$\eta(q_0)= \LTLnext \LTLfinally \LTLglobally \lnot g$\\
+$\mu(q_0)= \LTLnext \LTLglobally \LTLfinally g$}]
+{$q_0$};
+   
+\node[state,accepting] (q_1) 
+[right = 2.1cm of q_0,
+label={
+[align=left,yshift=-0.1cm]
+below:
+$\eta(q_1)= \lnot g \LTLand \LTLnext \LTLglobally \lnot g  $\\
+$\mu(q_1)= g \LTLor \LTLnext \LTLfinally g$}]
+{$q_1$};
+
+\path[->]      
+(q_0) edge [loop above]node [above]{$true$} (q_0) 
+(q_0) edge node [above,align=center]
+{\\ \\ \\ $\overline{g}$} (q_1)
+(q_1) edge [loop above]node [above right, pos=0.8,align=center]
+{\\ \\ \\ $\overline{g}$} (q_1);    
+
+\end{tikzpicture} 

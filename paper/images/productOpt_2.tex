@@ -1,0 +1,73 @@
+
+
+
+
+\begin{tikzpicture}[scale=0.33] %[x={10.0pt},y={10.0pt}]
+
+\node[statep, initial, initial text={}, initial where=above] (s0q0) 
+%[label={[yshift=-1.1cm,xshift=0cm]\scriptsize $\{q_0\}$},font=\scriptsize] {$\langle s_0,q_0\rangle$}; 
+[font=\scriptsize] {$\langle s_0,q_0\rangle$}; 
+\node[statep,  initial, initial text={}, initial where=above] (s0q1) 
+%[below = 0.6cm of s0q0,label={[yshift=-1.1cm,xshift=0.5cm]\scriptsize $\{q_1\}$},font=\scriptsize] {$\langle s_0,q_1\rangle$}; 
+[below = 0.6cm of s0q0,font=\scriptsize] {$\langle s_0,q_1\rangle$}; 
+
+\node[statep] (s1q0) 
+%[left = 0.4cm of s0q0,label={[yshift=-1.1cm,xshift=0cm]\scriptsize $\{q_0\}$},font=\scriptsize] {$\langle s_1,q_0\rangle$}; 
+[left = 0.4cm of s0q0,font=\scriptsize] {$\langle s_1,q_0\rangle$}; 
+\node[statep] (s1q1) 
+%[below = 0.6cm of s1q0,label={[yshift=-1.1cm,xshift=0.5cm]\scriptsize $\{q_1\}$},font=\scriptsize] {$\langle s_1,q_1\rangle$}; 
+[below = 0.6cm of s1q0,font=\scriptsize] {$\langle s_1,q_1\rangle$}; 
+
+\node[statep] (s2q0) 
+%[right = 0.4cm of s0q0,label={[yshift=-1.1cm,xshift=0cm]\scriptsize $\{q_0\}$},font=\scriptsize] {$\langle s_2,q_0\rangle$}; 
+[right = 0.4cm of s0q0,font=\scriptsize] {$\langle s_2,q_0\rangle$}; 
+\node[statep] (s2q1) 
+%[below = 0.6cm of s2q0,label={[yshift=-1.1cm,xshift=-0.5cm]\scriptsize $\{q_1\}$},font=\scriptsize] {$\langle s_2,q_1\rangle$}; 
+[below = 0.6cm of s2q0,font=\scriptsize] {$\langle s_2,q_1\rangle$}; 
+
+%%LABELS for steps
+\node[empty] (step3u) [above = 0.155cm of s0q0] {}; 
+\node[empty] (step1u) [below = 0.155cm of s0q1] {}; 
+\node[emptynode] (step3) [left = 1.9cm of step3u] {\tiny Step 3}; 
+\node[emptynode] (step1) [left = 1.9cm of step1u] {\tiny Step 1}; 
+\node[emptynode] (step1b) [right = 1.9cm of step1u] {\tiny Step 1}; 
+\node[emptynode] (step2) [right= 1.1cm of step1] {\tiny Step 2};
+
+
+\path[->]      
+(s0q0) edge [bend left=15] node []{} (s1q0) 
+(s1q0) edge [bend left=15] node []{} (s0q0)  
+
+(s0q0) edge [bend left=15] node []{} (s2q0) 
+(s2q0) edge [bend left=15] node []{} (s0q0)  
+
+(s1q0) edge [bend right=5] node []{} (s0q1)
+(s2q0) edge [bend left=5] node []{} (s0q1)
+
+(s0q0) edge [bend left=5,dashed] node []{} (s1q1)
+(s0q0) edge [bend right=5,dashed] node []{} (s2q1)
+
+(s0q1) edge [bend left=5,dashed] node []{} (s1q1) 
+(s0q1) edge [bend right=5,dashed] node []{} (s2q1) 
+;    
+
+\begin{pgfonlayer}{background}
+
+%FAILED
+\filldraw [line width=2mm,join=round,black!5]
+(s1q1.south -| s1q1.west) rectangle (s1q1.north -| s1q1.east);
+\filldraw [line width=2mm,join=round,black!5]
+(s2q1.south -| s2q1.west) rectangle (s2q1.north -| s2q1.east);
+
+%SUCCESSORS
+\filldraw [line width=2mm,join=round,black!20]
+(s0q1.south -| s0q1.west) rectangle (s0q1.north -| s0q1.east);
+
+%INDUCTION
+\filldraw [line width=2mm,join=round,black!35]
+(s1q0.south -| s1q0.west) rectangle (s2q0.north -| s2q0.east);
+
+\end{pgfonlayer}
+
+
+\end{tikzpicture}

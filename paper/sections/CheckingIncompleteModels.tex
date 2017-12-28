@@ -1,0 +1,172 @@
+\emph{Partial Kripke Structures}~\cite{bruns1999model}  (PKSs) extend KSs by allowing a proposition in a given state to be labelled with $?$ to represent an unknown value. 
+A PKS $M$ is a tuple $\langle S, R,S_0,AP,L \rangle$,
+where:
+\begin{enumerate*}
+\item[] $S$ is a set of \emph{states};
+\item[] $R\subseteq S\times S$ is a \emph{left-total} \emph{transition relation} on $S$;
+\item[] $S_0$ is a set of initial states;
+\item[] $AP$ is a set of atomic propositions;
+\item[] $L: S\times AP\rightarrow \{\top,?,\bot\}$ is a \emph{function} that, for each state in $S$, associates a truth value in the set $\{\top,?,\bot\}$ to every atomic proposition in $AP$.
+\end{enumerate*}  
+The model of the grade crossing semaphore presented in Figure~\ref{fig:modelmot}  is an example of a PKS.
+
+A \emph{completion} of a PKS $M$ is a KS $M^\prime$ that completes $M$ by assigning values to the unknown propositions.
+The set $\mathcal{C}(M)$ contains all the completions of $M$.
+
+Two kinds of LTL semantics (three valued and thorough) exist for  PKSs. 
+%When the satisfaction of LTL formulae is considered w.r.t. PKSs, either the three-valued or the thorough semantics can be considered.
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------
+% Three-valued LTL semantic
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+\emph{Three-valued LTL semantics} $[(M,\pi) \models \phi]$ associates to a model $M$, a path $\pi$ of  $M$, and a formula $\phi$, a truth value in the set $\{ \bot, ?, \top \}$. This semantics specifies that a formula $\phi$ definitely holds in a PKS $M$ if it is true for all possible values of the unknown propositions in $M$. 
+Likewise, it is definitely violated if it is false despite the unknown values.
+%A formula $\phi$ is not satisfied if there is a path $\pi$ in the PKS which violates $\phi$ despite the unknown values of the atomic propositions associated to the states of $\pi$.
+%Otherwise the formula is unknown.
+According to three-valued semantics~\cite{godefroid2011ltl}, given a PKS $M = \langle S, R,$ $S_0, AP, L \rangle$, a path $\pi=s_0,s_1,\ldots$, and a formula $\phi$, we inductively define that $\pi$ satisfies $\phi$ in the model $M$ as follows:
+\begin{align*}
+&[(M,\pi) \models p] &   = &&& L(s_0,p)\\
+&[(M,\pi) \models \lnot\phi] &   = &&& \textnormal{comp}([(M,\pi) \models\phi]) \\
+&[(M,\pi) \models \phi_1 \LTLand \phi_2] &   =   &&& \min([(M,\pi) \models\phi_1],[(M,\pi) \models\phi_2])\\
+&[(M,\pi) \models \LTLnext \phi] &   =  &&& [(M,\pi^1) \models\phi]\\
+&[(M,\pi) \models \phi_1 \LTLuntil \phi_2] &   =  &&& \max_{j\geq 0}(\min(\{[(M,\pi^i) \models\phi_1]|i<j\} \cup \{[(M,\pi^j) \models\phi_2]\}))
+\end{align*}
+\noindent{where the notation $\pi^i$ indicates the sub-path $s_i, s_{i+1} \ldots $ of $\pi$.}
+
+Negation is defined by the function comp (complement), which maps $\top$ to $\bot$, $\bot$ to $\top$, and $?$ to $?$.
+The conjunction (disjunction) is defined as the minimum (maximum) of its arguments, following the order $\bot <\ ? < \top$. These functions are extended to sets considering min($\emptyset$)=$\top$ and max($\emptyset$)=$\bot$.
+
+Given a PKS $M = \langle S, R,$ $S_0, AP, L \rangle$, satisfaction of formula $\phi$ in a state $s$ is defined as  $[(M, s) \models \phi]  =   \min(\{[(M, \pi) \models \phi] \mid \pi^0=s\})$.
+A PKS $M$ \emph{definitely satisfies} a property $\phi$ ($[M \models \phi]=\top$) iff for all initial states $s_0 \in S_0$ of $M$, $[(M, s_0) \models \phi]=\top$. 
+A PKS $M$ \emph{does not satisfy} the property $\phi$ ($[M \models \phi]=\bot$) iff there exists an initial state $s_0 \in S_0$ of $M$ such that  $[(M, s_0) \models \phi]=\bot$.
+A PKS \emph{possibly satisfies} $\phi$ otherwise.
+%In the rest of the paper we will use interchangeably the expressions ``$M$ definitely satisfies $\phi$'' and ``$\phi$ holds in $M$'', ``$M$ does not satisfy $\phi$'' and ``$\phi$ does not hold in $M$'', as well as ``$M$ possibly satisfies $\phi$'' and ``$\phi$ possibly holds in $M$''.
+
+
+
+Three-valued semantics does not behave always in accordance with the natural intuition~\cite{bruns2000model}: there are cases in which $\phi$ possibly holds for a PKS but all its  completions 
+%(obtained by replacing the $?$ values with $\top$ and $\bot$) 
+actually satisfy (or do not satisfy)  $\phi$.
+%For instance, this happens when $\phi$ is a tautology or it is unsatisfiable with a traditional two-valued interpretation. 
+For this reason, an alternative semantics, called \emph{thorough LTL semantics}~\cite{bruns2000model} has been proposed. 
+According to it, a formula is possibly satisfied only if there exist two completions $M_1, M_2 \in \mathcal{C}(M)$, such that $\phi$ is definitely satisfied in one and violated in the other.
+%Thorough semantics defines satisfaction of an  LTL formula $\phi$ by a PKS $M$ ($[M\models\phi]_t$)  as follows:
+Thorough semantics defines satisfaction of an  LTL formula $\phi$ by a PKS $M$ as follows:
+\begin{equation}
+ [M \models\phi]_t  = 
+                						\begin{cases}
+                  								\top & \quad  \text{if}\ M^\prime \models \phi \text{ for all } M^\prime \in \mathcal{C}(M)\\
+                  								\bot & \quad  \text{if}\ M^\prime \not\models\phi \text{ for all } M^\prime \in \mathcal{C}(M)\\
+                  								? &  \quad  \text{otherwise}
+                							  \end{cases}      					  		   \nonumber
+\end{equation}
+
+
+Given a PKS and an LTL formula $\phi$, it has been proved~\cite{godefroid2011ltl} that 
+\begin{enumerate*}[label={(\arabic*)}]
+\item $[M\models\phi] =$ $ \top \Rightarrow$ $ [M\models\phi]_t = \top$;
+\item $[M\models\phi] = \bot \Rightarrow [M\models\phi]_t = \bot$.
+\end{enumerate*}
+That is, a formula which is true (false) under the three-valued semantics is also true (false) under the thorough semantics.
+
+There exists a subset of LTL formulae, known in the literature as \emph{self-minimizing}~\cite{godefroid2005MCvsGMC}, such that the two semantics coincide. Formally,
+given a model $M$ and a  self-minimizing LTL property $\phi$, then $[M\models\phi]=[M\models\phi]_t$. It has been observed that most practically useful LTL formulae belong to this subset~\cite{godefroid2005MCvsGMC}.
+
+%In~\cite{godefroid2005MCvsGMC} the authors showed that many temporal-logic formulae of practical interest are self-minimizing.
+%More precisely, all the formulae that do not contain atomic propositions with mixed polarity (negated and not negated) in their negation normal form are self-%minimizing; if the formulae follow specific patterns are self-minimizing;
+%some LTL formulae that are not self-minimizing can be converted into self-minimizing LTL formulae using a procedure called semantic-minimization.
+%The interested reader may refer to~\cite{godefroid2005MCvsGMC} for more details.
+%
+%
+
+
+We present a \emph{model checking} algorithm for PKSs and LTL formulae based on three-valued semantics. 
+%This algorithm exploits two classical model checking procedures for KSs.
+This procedure considers a version of $M$, called \emph{complement-closed}~\cite{bruns2000model}, in which for every proposition $p \in AP$, there exists a new proposition $\overline{p}$, called complement-closed proposition, such that $L(s,\overline{p})=$ comp$(L(s,p))$, for all $s \in S$.
+%	The proposition $q$, whose value is complementary to the one of $p$, is indicated as $\overline{p}$.
+For example, the complement-closed version of the PKS of the semaphore example is presented in Figure~\ref{fig:model}.
+%, where the atomic propositions $\overline{g}$ and $\overline{r}$ are associated with the complement of the values of  propositions green ($g$) and red ($r$), respectively.
+
+\begin{figure}[t]
+\begin{minipage}[b]{.5\textwidth}
+  \begin{figure}[H]
+ \centering
+\input{images/modelApproachNew.tex}
+\caption{The PKS of  the  crossing semaphore.}
+\label{fig:model}
+\end{figure}
+\end{minipage}
+\begin{minipage}[b]{.5\textwidth}
+  \begin{figure}[H]
+\centering
+\input{images/property_2.tex}
+\caption{The BA associated with $\phi_2$.}
+\label{fig:property}
+\end{figure}
+\end{minipage}
+\end{figure}
+
+
+
+%
+%\begin{definition}[PKS optimistic and pessimistic labelling~\cite{bruns2000model}]
+%Given a three-valued labelling function $L$,  we define the derived optimistic ($L_{opt}$) and pessimistic ($L_{pes}$) labelling function for every state s of the model $M$ as follows: 
+%\begin{equation}
+%    L_{opt}(s,p) \buildrel \text{def}\over = 
+%                					\begin{cases}
+%                  						\top & \quad  \text{if}\ L(s,p)=?\\
+%                  						L(s,p) &  \quad otherwise
+%                					\end{cases}
+%\end{equation}            					  
+%\begin{equation}      					  
+%   L_{pes}(s,p) \buildrel \text{def}\over = 
+%	                            \begin{cases}
+%                  				       \bot  & \quad \text{if}\ L(s,p)=?\\
+%                  						L(s,p) & \quad otherwise
+%                					\end{cases}
+%\end{equation}
+%\end{definition}
+
+
+The model checking procedure for a PKS $M$ is based on an optimistic and pessimistic approximation of $M$'s complement-closure.
+The optimistic (pessimistic) approximation function $L_{opt}$  ($L_{pes}$) associates the value $\top$ ($\bot$) to each atomic proposition of the complement-closure of $M$ with value $?$.
+Given a PKS $M=\langle S,R, S_0, L \rangle$, we have $M_{pes}=\langle S,R, S_0, L_{pes} \rangle$ for the pessimistic case, and $M_{opt}=\langle S,R, S_0, L_{opt} \rangle$ for the optimistic one.
+%
+%The model checking procedure exploits the under and the over approximations as we show hereafter.
+
+The three-valued model checking algorithm assumes that property $\phi$ is rewritten using complement-closed propositions. 
+The procedure works in two steps.
+First, the formula is expressed such that negations only appear in front of atomic propositions. 
+Second, each negated proposition is substituted by the corresponding complemented proposition.
+Let $\phi$ be an LTL formula obtained using the procedure just discussed, $M=\langle S, R, S_0, L\rangle $ a PKS with $s \in S$, and $M_{pes}$ and $M_{opt}$ the corresponding pessimistic and optimistic cases. 
+%
+%Then, $[(M,s)\models\phi]$ has been defined in~\cite{bruns2000model}
+\setcounter{footnote}{0}
+Then, \cite{bruns2000model}\footnote{In~\cite{bruns2000model} the procedure is presented for PML but is valid also for LTL (see \cite{bruns2000model,godefroid2005MCvsGMC,godefroid2011ltl}).} has defined:
+\begin{equation}
+    [(M,s)\models\phi]  = 
+                						 \begin{cases}
+                  				 				\top & \quad \text{if}\ (M_{pes},s)\models\phi\\
+                  								\bot & \quad \text{if}\ (M_{opt},s)\not\models\phi\\
+                  								? & \quad  otherwise
+                						\end{cases} \nonumber
+\end{equation}
+
+This technique exploits two runs of the classical two-valued model checking performed  on a pessimistic and an optimistic completion of  $M$.
+%Note that whenever a $\top$ or $\bot$ value is returned, the property $\phi$ is guaranteed to be true/false in all the completions of $M$.
+%For additional details on this procedure see~\cite{bruns2000model,godefroid2011ltl}.
+
+
+
+
+%\begin{theorem}(The verification procedure is correct)
+%\end{theorem}
+%\begin{proof}
+%Given a self-minimizing temporal logic formula $\phi$, by Proposition~\ref{def:self-minimizing}, generalized (which is based on the thorough semantic) and
+%three-valued model checking produce the same result.
+%Thus, the considered three-valued model checking algorithm returns the correct value also under the thorough interpretation.
+%\end{proof}
+
+
+

@@ -1,0 +1,38 @@
+%\fixme{I suggest that we get rid of this section. Almost all comments on self-minimizing have already been moved to earlier. I do not understand the comment on the available grammar for self-minim LTL formulae. If there is a grammar that precisely defines them, why not use it instead of the LTL grammar? But then below you also say that checking whether an LTL formula is self-min is expensive--exponential. How can it be if we have a simple grammar? There is something fishy here. I suggest that you extract the few useful comments that are still worth making and perhaps move to conclusions (with future work). For example, the fact that we could build a model checker for thorough semantics might go there. The final comment on scalability may perhaps instead go earlier to 4.3}
+
+
+This section elaborates on the applicability of \NAME\ in real cases. 
+
+\emph{Three-valued vs thorough semantics.} %When  \NAME\ returns a $?$ value, the result is not correct considering the thorough semantics.
+The generalized model checking algorithm~\cite{bruns2000model} (which levies a performance penalty) could be used to check a property under the thorough semantics.
+In~\cite{gurfinkel2005thorough}, the authors analyze how the generalized model checking really helps.
+Whenever the model is built using predicate abstraction~\cite{graf1997construction}, the thorough check does not provide additional precision.
+It is also argued that in many practically interesting cases, the thorough semantics is not more precise than the three-valued one. 
+For these reasons, \NAME\ can be correctly applied in most of the real world cases.
+
+\emph{Temporal patterns of self-minimization.} 
+%\NAME\ always produces a correct result when the LTL formula is self-minimizing.
+%In~\cite{godefroid2005MCvsGMC} the authors propose a first grammar for this LTL subset.
+%This grammar can be used to generate formulae that are (by construction) self-minimizing or to check whether a specific formula is self-minimizing.
+%The authors also argue that the set of self-minimizing LTL formulae contains most of the properties of practical interest, such as absence, universality, existence, response and response chain. 
+In~\cite{antonik2006efficient}, the authors consider popular syntactic specification patterns, documented at a community-led pattern repository, and check whether formulae compliant with these patterns are self-minimizing.
+They show that many such patterns are self-minimizing and the ones that are not can be transformed with linear blowup into a self-minimizing LTL formula.
+Thus, in most practical cases, the designer will consider a formula that is self-minimizing. 
+A syntactic check can be used to prove self-minimization before running \NAME .
+
+\emph{Checking whether an LTL formula is self-minimizing.} Checking whether an LTL formula is self-minimizing is expensive, since it requires to compute an automaton that is exponential in $|\phi|$~\cite{godefroid2005MCvsGMC}. 
+However, if $\phi$ satisfies some constraints (sufficient conditions) then it is self-minimizing.
+For example, if it is in its negation normal form and no proposition occurs in mixed polarity, then $\phi$ is self-minimizing.
+These checks can be implemented in \NAME . 
+
+\emph{Scalability.} Three-valued model checking is as expensive as classical model checking~\cite{bruns1999model}, which is commonly used to analyze real world problems~\cite{Woodcock:2009:FMP:1592434.1592436}.
+Deductive verification has been employed successfully in the verification of digital hardware and software systems~\cite{rajan1995integration}.
+%However, there are inherent limits to the efficiency with which expressive general-purpose logics can be fully mechanized. 
+%Two approaches have been proposed in literature to overcome this limitation:
+%\begin{enumerate*}
+%\item  using interactive deductive verification tools so that correctness proofs can be developed through a combination of user guidance and limited forms of automated deduction;
+%\item considering useful fragments of logic that can be mechanized very effectively.
+%\end{enumerate*}
+Since \NAME\ simply combines multi-valued model checking and theorem proving, its scalability improves  as the performance of the employed model checking and deductive verification  frameworks enhances.
+
+

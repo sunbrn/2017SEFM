@@ -1,0 +1,38 @@
+%Hereafter we briefly recall background information on how to integrate a theorem prover with a model checker. 
+Given a complete KS $M$ and an LTL property $\phi$ that is satisfied by $M$, the deductive verification framework produces a proof which explains why $M \models \phi$~\cite{peled2001model} considering the product  
+%$\mathcal{G}=M\otimes\mathcal{A}_{\lnot\phi}$
+$\mathcal{G}=M \otimes \gba$ where $\gba$ is a  Generalized B{\"u}chi Automaton (GBA \cite{gerth1996ltl2ba}) obtained by $\lnot\phi$.
+The approach is based on three considerations.
+\begin{enumerate*}[label={(\arabic*)}]
+\item Every state $q\in Q$ of $\gba$ is associated with an LTL formula $\eta(q)$ such that, for every accepting run $\sigma=q_0,q_1,...$ of $\mathcal{G}$, $\sigma_i\models\eta(q_i)$. 
+The formula $\eta(q)$  is computed during the procedure that converts the LTL formula $\neg \phi$ into $\gba$~\cite{gerth1996ltl2ba}. For instance, the state $q_1$ of the automaton presented in Figure~\ref{fig:property} is associated with the formula $\eta(q_1)= \lnot g \LTLand \LTLnext \LTLglobally \lnot g$;
+\item Each state $\langle s, q \rangle$  which was not created during the computation of $M\otimes \gba$, is such that $s$ does not satisfy $\eta(q)$, i.e., $s \models \mu(q)$.
+Each of these states, called \emph{failed state}, causes a failure in the search of a counterexample and ensures the satisfaction of $\phi$ in the corresponding state of the system;
+\item Given a state $\langle s, q \rangle$ of the automaton $M\otimes \gba$, the property $\eta(q)$ associated with the state $q$ of $\gba$ is \emph{not} satisfied in $s$. 
+Indeed, if $\eta(q)$ was satisfied, a counterexample would have been found.
+Thus, the negation $\mu(q)$ of $\eta(q)$ holds in $s$.
+\end{enumerate*} 
+
+In the rest of this paper we will use the notation $s_1, s_2 \ldots s_n \models  \phi$ to indicate that the states $s_1, s_2 \ldots s_n$ of a KS satisfy an LTL property $\phi$.
+
+The deductive verification framework enriches the product $M \otimes \gba$ by considering also failed states as part of it.
+Since in each failed state $\langle t,p \rangle$ the search of a counterexample has failed, we can write the failure axiom $t\models \mu(p)$.
+A set of deductive rules is applied to produce the proof.
+\begin{enumerate*}[label={(\arabic*)}]
+\item \emph{Successors rule.} Given a state $\langle s, q\rangle$ of the product, if for each of its successors $\langle s_i, q_j\rangle$ the state $s_i$ of $M$ satisfies the formula $\mu(q_j)$, then also $s$ satisfies $\mu(q)$.
+Intuitively, the rule is based on two observations.
+First, each successor  $\langle s_i, q_j\rangle$ of  $\langle s, q\rangle$ does not cause a violation of $\phi$, i.e., it ensures that $s_i \models \mu(q_j)$.
+Second, by moving from $\langle s, q\rangle$ to $\langle s_i, q_j\rangle$ the system does not violate the property of interest, since no counterexample was found.
+Thus, it must be that $s$ satisfies $\mu(q)$.
+\item \emph{Induction rule.} It is a generalization of the successors rule applied on strongly connected components (SCCs). 
+Given a strongly connected component $\mathcal{X}$, let us identify with $Exit(\mathcal{X})$ the set of all states $\langle s_i, q_j\rangle$ that do not belong to $\mathcal{X}$ and have an incoming transition from a source state in $\mathcal{X}$.
+If every state $\langle s_i, q_j\rangle \in Exit(\mathcal{X})$ is such that $s_i \models \mu(q_j)$, we can conclude that, for every state $\langle s, q \rangle \in \mathcal{X}$, $s \models \mu(q)$ holds.
+Intuitively, since all the ``successors'' of $\mathcal{X}$ (the states in $Exit(\mathcal{X})$) ensure the property satisfaction and the states in $\mathcal{X}$ do not violate the property of interest (no counterexample has been found in the product), it must be that each state $s$ satisfies the corresponding property $\mu(q)$. 
+\item \emph{Conjunction rule.} It connects conclusions made on a given state making temporal logic interferences. 
+The formulae computed for a given state are and-combined.
+\end{enumerate*}
+
+These rules are applied considering the partial ordering relation $\prec$ between SCCs. 
+The relation $\mathcal{X} \prec \mathcal{X}'$ holds if there exists a transition from some state in $\mathcal{X}$ to some state in $\mathcal{X}'$. 
+If $\mathcal{X} \prec \mathcal{X}'$, before considering the component  $\mathcal{X}$, it is necessary to compute the proof of $\mathcal{X}'$.
+

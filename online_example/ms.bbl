@@ -1,0 +1,21 @@
+\begin{thebibliography}{1}
+
+\bibitem{arcaini2015formal}
+P.~Arcaini, S.~Bonfanti, A.~Gargantini, A.~Mashkoor, and E.~Riccobene.
+\newblock Formal validation and verification of a medical software critical
+  component.
+\newblock In {\em Formal Methods and Models for Codesign}, pages 80--89. IEEE,
+  2015.
+
+\bibitem{Bernasconi}
+A.~Bernasconi, C.~Menghi, P.~Spoletini, L.~D.~Zuck, and C.~Ghezzi.
+\newblock From model checking to a temporal proof for partial models.
+\newblock In {\em Software Engineering and Formal Methods}. Springer, 2017.
+
+\bibitem{peled2001model}
+D.~Peled and L.~Zuck.
+\newblock From model checking to a temporal proof.
+\newblock In {\em International SPIN workshop on Model checking of software},
+  pages 1--14. Springer, 2001.
+
+\end{thebibliography}

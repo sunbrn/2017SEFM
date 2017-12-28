@@ -1,0 +1,137 @@
+
+ \begin{theindex} 
+ \makeatletter\scan@allowedfalse
+{\bfseries\hfil B\hfil}\nopagebreak
+
+  \item \verb*+\bot+\pfill 131
+
+  \indexspace
+{\bfseries\hfil D\hfil}\nopagebreak
+
+  \item \verb*+\DeclareMathOperator+\pfill 48--64, 124--132
+  \item \verb*+\define@boolkeys+\pfill 117
+  \item \verb*+\draw+\pfill 7, 12, 14, 19, 21, 26, 31, 33, 38, 43, 45
+
+  \indexspace
+{\bfseries\hfil E\hfil}\nopagebreak
+
+  \item \verb*+\else+\pfill 84, 97, 105
+
+  \indexspace
+{\bfseries\hfil F\hfil}\nopagebreak
+
+  \item \verb*+\fi+\pfill 87, 107, 110
+
+  \indexspace
+{\bfseries\hfil I\hfil}\nopagebreak
+
+  \item \verb*+\ifKV@ltl@characters+\pfill 88
+  \item \verb*+\ifKV@ltl@weakindex+\pfill 81, 103
+
+  \indexspace
+{\bfseries\hfil L\hfil}\nopagebreak
+
+  \item \verb*+\leftrightarrow+\pfill 128
+  \item \verb*+\lhd+\pfill 125
+  \item \verb*+\ltl@define+\pfill 80, 119, 122
+  \item \verb*+\LTLand+\pfill 129
+  \item \verb*+\LTLb+\pfill 52, 86
+  \item \verb*+\LTLback+\pfill 115
+  \item \verb*+\LTLcircle+\pfill 5, \main{5}, 48, 100
+  \item \verb*+\LTLcircleminus+\pfill 10, \main{10}, 49, 102
+  \item \verb*+\LTLcircleminusw+\pfill 49, 104
+  \item \verb*+\LTLcircletilde+\pfill 17, \main{17}, 106
+  \item \verb*+\LTLcirclew+\pfill 48, 101
+  \item \verb*+\LTLdiamond+\pfill 24, \main{24}, 99
+  \item \verb*+\LTLdiamondminus+\pfill 29, \main{29}, 109
+  \item \verb*+\LTLequ+\pfill 134
+  \item \verb*+\LTLequivalent+\pfill 128, 134
+  \item \verb*+\LTLeventually+\pfill 111
+  \item \verb*+\LTLf+\pfill 57, 90
+  \item \verb*+\LTLfalse+\pfill 131
+  \item \verb*+\LTLfinally+\pfill 72, 90, 99, 111
+  \item \verb*+\LTLg+\pfill 58, 89
+  \item \verb*+\LTLglobally+\pfill 71, 89, 98
+  \item \verb*+\LTLh+\pfill 63, 95
+  \item \verb*+\LTLimp+\pfill 133
+  \item \verb*+\LTLimplication+\pfill 127, 133
+  \item \verb*+\LTLnext+\pfill 73, 91, 100
+  \item \verb*+\LTLo+\pfill 64, 96
+  \item \verb*+\LTLonce+\pfill 114
+  \item \verb*+\LTLor+\pfill 130
+  \item \verb*+\LTLp+\pfill 61, 93
+  \item \verb*+\LTLpastfinally+\pfill 78, 96, 109, 114
+  \item \verb*+\LTLpastgloabally+\pfill 77, 95
+  \item \verb*+\LTLpastglobally+\pfill 108
+  \item \verb*+\LTLpredict+\pfill 124
+  \item \verb*+\LTLprev+\pfill 112
+  \item \verb*+\LTLprevious+\pfill 75, 93, 102, 112
+  \item \verb*+\LTLpw+\pfill 62, 94
+  \item \verb*+\LTLr+\pfill 53, 66
+  \item \verb*+\LTLrecord+\pfill 125
+  \item \verb*+\LTLrelease+\pfill 66
+  \item \verb*+\LTLs+\pfill 54, 67
+  \item \verb*+\ltlsetup+\pfill 120, \main{120}
+  \item \verb*+\LTLsince+\pfill 67
+  \item \verb*+\LTLsquare+\pfill 36, \main{36}, 98
+  \item \verb*+\LTLsquareminus+\pfill 41, \main{41}, 108
+  \item \verb*+\LTLstop+\pfill 126
+  \item \verb*+\LTLsw+\pfill 55, 83
+  \item \verb*+\LTLtrue+\pfill 132
+  \item \verb*+\LTLu+\pfill 50, 65
+  \item \verb*+\LTLuntil+\pfill 65
+  \item \verb*+\LTLuw+\pfill 51, 82
+  \item \verb*+\LTLw+\pfill 56, 85
+  \item \verb*+\LTLweaknext+\pfill 74, 92, 101
+  \item \verb*+\LTLweakprev+\pfill 113
+  \item \verb*+\LTLweakprevious+\pfill 76, 94, 104, 106, 113
+  \item \verb*+\LTLweaksince+\pfill 70, 83, 86, 115
+  \item \verb*+\LTLweakuntil+\pfill 69, 82, 85
+  \item \verb*+\LTLx+\pfill 59, 91
+  \item \verb*+\LTLxw+\pfill 60, 92
+
+  \indexspace
+{\bfseries\hfil M\hfil}\nopagebreak
+
+  \item \verb*+\mathcal+\pfill 50--64
+
+  \indexspace
+{\bfseries\hfil N\hfil}\nopagebreak
+
+  \item \verb*+\newcommand+\pfill 80, 120
+
+  \indexspace
+{\bfseries\hfil P\hfil}\nopagebreak
+
+  \item \verb*+\ProcessOptionsX+\pfill 118
+
+  \indexspace
+{\bfseries\hfil R\hfil}\nopagebreak
+
+  \item \verb*+\relax+\pfill 69--78
+  \item \verb*+\RequirePackage+\pfill 1--4
+  \item \verb*+\rhd+\pfill 124
+  \item \verb*+\rightarrow+\pfill 127
+
+  \indexspace
+{\bfseries\hfil S\hfil}\nopagebreak
+
+  \item \verb*+\setkeys+\pfill 121
+
+  \indexspace
+{\bfseries\hfil T\hfil}\nopagebreak
+
+  \item \verb*+\tikz+\pfill 6, 11, 18, 25, 30, 37, 42
+  \item \verb*+\top+\pfill 132
+
+  \indexspace
+{\bfseries\hfil V\hfil}\nopagebreak
+
+  \item \verb*+\vee+\pfill 130
+
+  \indexspace
+{\bfseries\hfil W\hfil}\nopagebreak
+
+  \item \verb*+\wedge+\pfill 129
+
+ \end{theindex}

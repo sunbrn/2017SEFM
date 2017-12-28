@@ -1,0 +1,228 @@
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+%\setcounter{tocdepth}{3}
+\usepackage{graphicx}   % for the adjustwidth environment
+
+\usepackage{url}    
+\urldef{\mailsa}\path|{anna.bernasconi,carlo.ghezzi}@polimi.it| 
+\urldef{\mailsb}\path|pspoleti@kennesaw.edu| 
+\urldef{\mailsd}\path|claudio.menghi@gu.se|
+\urldef{\mailsc}\path|lenore@cs.uic.edu|   
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+%%%%%%%%%%%%%%%%%%START CUSTOM SECTION%%%%%%%%%%%%%%%
+
+\usepackage{mathtools}
+\usepackage{mathpartir}
+\usepackage[inline]{enumitem}
+\usepackage{cancel}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{todonotes}
+
+ \usepackage{ltl}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{textgreek}
+\usepackage{enumitem}
+\usepackage{pifont}
+\usepackage{changebar}
+\usepackage{changes}
+\usepackage{multirow}
+\usepackage{makecell}
+
+\definecolor{mygreen}{rgb}{0.0, 0.5, 0.0}
+\definecolor{myred}{rgb}{0.8, 0.0, 0.0}
+
+\usepackage{scalerel}
+\def\thumbsup{\scalerel*{\includegraphics{up.png}}{O}}
+\def\thumbsdown{\scalerel*{\includegraphics{down.png}}{g}}
+
+\newcommand{\validProof}{\ding{51}}
+\newcommand{\validCounterexample}{\textcolor{mygreen}{\thumbsup}}
+\newcommand{\notvalidProof}{\ding{55}}%
+\newcommand{\spuriosCounterexample}{\textcolor{myred}{\thumbsdown}}%
+\newcommand{\gba}{\ensuremath{\mathcal{E}_{\lnot\phi}}}
+\newcommand{\ba}{\ensuremath{\mathcal{\mathcal{A}_{\lnot\phi}}}}
+\usepackage{todonotes}
+\author{Claudio Menghi}
+\definechangesauthor[name={Claudio Menghi},color=orange]{CM}
+\author{Anna Bernasconi}
+\definechangesauthor[name={Anna Bernasconi},color=red]{AB}
+\author{Paola Spoletini}
+\definechangesauthor[name={Paola Spoletini},color=green]{PS}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\usepackage{tikz, pgf, pgfplots}
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{shapes,shapes.geometric}
+\usetikzlibrary{backgrounds}
+
+%%circled numbers in line with text
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+            
+%utils for automata states
+\tikzset{state/.style={
+        draw, 
+        ellipse, 
+        minimum height=2em, 
+        minimum width=2.8em,  
+        thick } }
+\tikzset{statep/.style={
+    draw, 
+    ellipse, 
+    minimum height=1em, 
+    minimum width=1em,  
+    thick } }
+\tikzset{emptynode/.style={ draw } }
+\tikzset{empty/.style={ } } 
+
+% per testo barrato
+\usepackage[normalem]{ulem}
+\newcommand{\cla}[1]{{\color{blue} #1}}
+\newcommand{\anna}[1]{{\color{red} #1}}
+\newcommand{\pao}[1]{{\color{green} #1}}
+\newcommand{\fixme}[1]{{\color{red} #1}}
+
+
+\newcommand{\NAME}{THRIVE}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+%%%%%%%%%%%%%%%%%%END CUSTOM SECTION%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+% first the title is needed
+\title{From model checking to a temporal proof \\for partial models}
+
+% a short form should be given in case it is too long for the running head
+\titlerunning{From model checking to a temporal proof for partial models}
+
+% the name(s) of the author(s) follow(s) next
+%
+% NB: Chinese authors should write their first names(s) in front of
+% their surnames. This ensures that the names appear correctly in
+% the running heads and the author index.
+%
+
+
+
+
+\author{Anna Bernasconi\inst{1}
+\and Claudio Menghi\inst{2}
+\and Paola Spoletini\inst{3}
+\and \\ Lenore D. Zuck\inst{4}
+\and Carlo Ghezzi\inst{1}}
+%
+\authorrunning{From model checking to a temporal proof for partial models}
+% (feature abused for this document to repeat the title also on left hand pages)
+
+% the affiliations are given next; don't give your e-mail address
+% unless you accept that it will be published
+\institute{Politecnico di Milano, DEIB - DEEPSE group,\\
+\mailsa\\
+\and
+Chalmers University of Technology | University of Gothenburg\\
+\mailsd\\
+\and
+Kennesaw State University,\\
+\mailsb\\
+\and
+University of Illinois at Chicago,\\
+\mailsc\\
+}
+
+
+\toctitle{Lecture Notes in Computer Science}
+\tocauthor{Authors' Instructions}
+\maketitle
+
+
+\begin{abstract}
+Three-valued model checking has been proposed to support verification when some portions of the model are unspecified. 
+Given a formal property, the model checker returns \emph{true} if the property is satisfied, \emph{false} and a violating behavior if it is not,  \emph{maybe}  and a possibly violating behavior if
+it is \emph{possibly satisfied}, i.e., its satisfaction may depend on how the unspecified parts are refined.
+Model checking, however, does not explain the reasons \emph{why} a property holds, or possibly holds.
+Theorem proving can instead do it by providing a formal proof that explains why a property holds, or possibly holds in a system. Integration of theorem proving with model checking has only been studied for classical two-valued logic -- hence, for fully specified models.
+%Theorem proving has been used in two-valued model checking to produce a formal proof in the case the property holds in a system. 
+This paper proposes a unified approach that enriches three-valued model checking with  theorem proving to generate proofs which explain why \emph{true} and \emph{maybe} results are returned.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\input{sections/Introduction.tex}
+
+%\section{Motivating Example.} 
+%\label{sec:motivating}
+%\input{sections/motivatingExample.tex}
+
+\section{Background}
+\label{sec:preliminaries}
+
+\vskip 0.05in  
+\textbf{\indent Checking complete models.}
+ \input{sections/CheckingCompleteModels.tex}
+
+\vskip 0.05in  
+\textbf{Checking partial models.}
+\input{sections/CheckingIncompleteModels.tex}
+
+\vskip 0.05in  
+\textbf{Deductive verification.}
+\input{sections/TheoremProving.tex}
+
+\section{\NAME}
+\label{sec:contribution}
+\input{sections/THRIVE.tex}
+
+
+
+
+\section{Using \NAME\ with PKS and LTL}
+\label{sec:theoremProverAdapting}
+\input{sections/adapting.tex}
+%\label{sec:example}
+%\input{sections/Example.tex}
+
+\section{Preliminary evaluation}
+\label{sec:preliminaryEvaluation}
+\input{sections/preliminaryEvaluation.tex}
+
+\section{Using \NAME\ in real cases}
+\label{sec:discussion}
+\input{sections/discussion.tex}
+
+%\section{Related Work}
+%\label{sec:stateoftheart}
+%\input{sections/StateOfTheArt.tex}
+
+
+\section{Conclusions and future work}
+\label{sec:conclusions}
+\input{sections/Conclusions.tex}
+
+
+\subsubsection*{Acknowledgments.} 
+Research partly supported from the EU H2020 Research and
+Innovation Programme under GA No. 731869 (Co4Robots).
+
+\bibliographystyle{abbrv}
+\bibliography{sigproc} 
+
+\end{document}
+ 
+
+
+
+
+

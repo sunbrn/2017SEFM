@@ -1,0 +1,64 @@
+\begin{tabular}[b]{ | p{1.8cm} | p{2.1cm} | p{4.3cm} | p{3cm} |  }
+\hline
+\emph{Step 1} &
+\emph{Step 2} &
+\emph{Step 3} &
+\emph{Step 4}\\
+\hline
+%%\multicolumn{4}{|c|}{Steps}  \\
+%% \hline
+\textbf{Fail} & 
+\textbf{Successors} &
+\textbf{Induction} &
+\textbf{Conjunction}\\
+ \hline
+ $\langle s_0,q_1\rangle,$\newline
+$ \langle s_2,q_1\rangle$
+ &
+ $\langle s_1,q_1\rangle$ 
+ &
+ $\mathcal{X}=\{\langle s_0,q_0\rangle,\langle s_1,q_0\rangle,\langle s_2,q_0\rangle\}$
+ $Exit(\mathcal{X})=\{\langle s_0,q_1\rangle,\langle s_1,q_1\rangle,$ $\langle s_2,q_1\rangle\}$
+ &
+The initial node $s_0$ \\	
+ 
+ \hline
+ 
+ \multicolumn{1}{|p{1.8cm}|}{
+ \inferrule{s_0 \in Fail(I_{opt})\\\\
+ s_2 \in Fail(I_{opt})
+}{ s_0\models g \LTLor \LTLnext \LTLfinally g \\\\
+ s_2\models g \LTLor \LTLnext \LTLfinally g}
+}
+
+   & 
+   
+\inferrule{s_1\rightarrow\{s_0\} \\\\ 
+ s_0\models g \LTLor \LTLnext \LTLfinally g }
+ {s_1\models g \LTLor \LTLnext \LTLfinally g} 
+
+  &
+  
+ \inferrule{ 
+ s_0\models g \LTLor \LTLnext \LTLfinally g \\\\
+  s_1\models g \LTLor \LTLnext \LTLfinally  g \\\\  
+  s_2\models g \LTLor \LTLnext \LTLfinally g \\\\
+s_0\rightarrow\{s_1,s_2\} \\\\ 
+ s_1\rightarrow\{s_0\} \\\\ 
+ s_2\rightarrow\{s_0\}   
+   }
+ {s_0\models \LTLnext \LTLglobally \LTLfinally g \\\\
+ s_1\models \LTLnext \LTLglobally \LTLfinally g \\\\
+ s_2\models \LTLnext \LTLglobally \LTLfinally g }
+ 
+  &
+  
+\inferrule{
+ s_0\models \LTLnext \LTLglobally \LTLfinally g \\\\
+  s_0\models g \LTLor \LTLnext \LTLfinally g \\\\
+ \LTLnext \LTLglobally \LTLfinally g \LTLand  (g \LTLor  \LTLnext \LTLfinally g)\rightarrow \phi_2 }
+ {s_0\models \phi_2}
+ 
+\\
+\hline
+\end{tabular}

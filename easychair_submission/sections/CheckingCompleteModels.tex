@@ -1,0 +1,9 @@
+Given a Kripke Structure $M$ (KS), the model checking procedure verifies whether a Linear Temporal Logic (LTL) formula $\phi$ holds or does not hold in $M$. 
+The procedure works in three steps:
+\begin{enumerate*}[label={(\arabic*)}]
+\item generation of a B{\"u}chi automaton (BA) $\mathcal{A}_{\lnot\phi}$ from the LTL formula $\neg \phi$;
+\item generation of the product $\mathcal{G}=M \otimes\mathcal{A}_{\lnot\phi}$;
+\item emptiness check of $\mathcal{G}$.
+\end{enumerate*}
+
+

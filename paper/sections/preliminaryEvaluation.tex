@@ -1,0 +1,68 @@
+This section tries to answer the following research question: \emph{how effective is \NAME\ w.r.t. incremental development?}
+
+To provide an initial answer, we simulated the design of a critical software system. 
+The system, described in~\cite{arcaini2015formal}, is used by optometrists and ophtalmologists to test visual problems and certify a certain level of stereoacuity.
+The test requires patients to pass levels with increasing difficulties, in which they have to recognize images.
+Each time the patient is able to recognize an image the system shifts to a higher level and a more difficult image is shown. 
+When the patient fails, the level is decreased.
+The test ends in one of these cases:
+\begin{enumerate*}
+\item when the patient fails the image recognition and she/he did not pass an easier level;
+\item when the top level is reached;
+\item if the doctor interrupts the test.
+\end{enumerate*}
+The complete model and the obtained results can be found in~\cite{bernasconi2017example}.
+ 
+
+\textbf{Experimental setup.}
+We modelled the system in~\cite{arcaini2015formal} as a PKS. 
+For simplicity we considered only two levels. 
+We used the atomic propositions \textit{fl}, \textit{sl}, \textit{test}, \textit{edb}, \textit{cert} and \textit{uncert} to specify that 
+the patient is in the first or in the second level of the test, 
+the test is under execution,
+a mistake has been made by the patient, 
+the patient has been certified and the patient is not certified, 
+respectively.
+If at some point the doctor quits the test, the patient is not certified.
+If the patient fails the first level, the patient is not certified.
+If he/she passes the first level, the second level is entered. 
+If the patient also passes the second level he/she is certified at the second level.
+Otherwise, we assume that the designer is uncertain on the level in which the component should certify/not-certify the patient (this is formalized by setting $fl=?$, $sl=?$).
+
+We designed a set of properties that the system has to satisfy.
+\begin{enumerate*}
+\item[] Property $\psi_1=(\neg cert) \LTLweakuntil$ $(\neg sl)$ states that a patient is not at the second level before he/she is certified (see~\cite{ltlpatternsurl}). Note that, as observed in the following, this property is wrong.
+\item[] Property  $\psi_2=\LTLglobally(test \rightarrow \LTLfinally(cert \LTLor uncert))$ specifies that every test must be followed by a certification or a non-certification.
+\item[] Property  $\psi_3=\LTLglobally(edb \rightarrow \LTLfinally (cert \LTLor fl))$ states that if an error has been made by the patient (\emph{edb}), she/he cannot be uncertified and be at the second level ($\neg fl$). Indeed, a mistake prevents a patient from increasing the assessed level.
+\end{enumerate*}
+Note that these properties are obtained from well-known property patterns~\cite{dwyer1998property}.
+
+
+\textbf{Results.} \emph{Property $\psi_1$.} 
+ \NAME\  returns the value $\LTLfalse$ and returns a definitive counterexample showing that there exists a case in which a patient is assessed at the second level but has not been certified yet.
+Indeed, the property is wrong; the desired property should have been expressed  as $\neg(cert \LTLand fl) \LTLweakuntil (\neg sl)$, meaning that a patient is not at the second level before he/she is certified at the first level.
+
+\emph{Property $\psi_2$.}  \NAME\ returns the value $\LTLtrue$, since the property of interest is satisfied. 
+The proof shows that a $test$ is always followed by a $cert$ or $uncert$.
+
+
+\emph{Property $\psi_3$.} 
+\NAME\ returns the value $?$ and a possible counterexample obtained by assigning $\LTLfalse$ to the proposition \emph{fl}. 
+\NAME\ considers the optimistic approximation to produce a proof that no definitive counterexample can be found.
+The obtained proof is correct since a simple grammar check shows that $\psi_3$ is self-minimizing. The proof shows why, by assigning $\LTLtrue$ to the unknown proposition \emph{fl}, the property of interest is satisfied.
+%First, it identifies the failed states, in which the property $\lnot cert \LTLand \lnot sl \LTLor edb$ holds. 
+%Then, the successors and the induction rules are iteratively applied.
+%Finally, conclusions are deduced for the initial state of the model. 
+
+The feedback produced by \NAME\ for properties $\psi_1$, $\psi_2$ and $\psi_3$ successfully helps in understanding whether a property of interest is satisfied, possibly satisfied or violated. 
+When the property is satisfied/possibly satisfied, understanding the reason why this is true supports self-confidence.
+
+%\fixme{I don't like the "threats to validity". I would drop it or simply say that we have used one small example here, and more should be done, especially with 2real" cases of software development. Perhaps we can refer to other works that try to manage in a similar way un+certainty in sw development.}
+
+%\textbf{Threats to validity.}  The proposed model is obtained by changing the values of some propositions to a $?$ value. 
+%There is no guarantee that the designer was  uncertain about the values of these propositions during the development. 
+%However, the proposed changes have been applied trying to simulate reasonable doubts the designed can have during the development.
+
+
+
+

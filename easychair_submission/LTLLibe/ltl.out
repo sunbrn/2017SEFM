@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Usage}{}% 2
+\BOOKMARK [1][-]{section.3}{Showcase}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Direct Symbol Usage}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Semantic Interface Usage with symbols and without weakindex}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Semantic Interface Usage with symbols and with weakindex}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{Semantic Interface Usage with characters and without weakindex}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.5}{Semantic Interface Usage with characters and with weakindex}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Installing ltlfonts}{}% 9
+\BOOKMARK [1][-]{section.5}{Implementation}{}% 10
+\BOOKMARK [2][-]{subsection.5.1}{TikZ symbol operators}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.2}{Character operators}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.3}{Semantic Macros for LTL Operators}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.4}{Option Handling}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.5}{Further macros}{section.5}% 15

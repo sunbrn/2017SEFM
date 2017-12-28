@@ -1,0 +1,11 @@
+
+ \begin{theglossary} 
+
+    \makeatletter\scan@allowedfalse
+
+  \item v0.1\efill 
+ \subitem General:\ Initial version\pfill 1
+  \item v0.2\efill 
+ \subitem General:\ Macro collection transformed into a \LaTeX  \ package.\pfill 1
+
+ \end{theglossary}

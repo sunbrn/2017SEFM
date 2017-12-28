@@ -1,0 +1,39 @@
+\begin{tikzpicture}[scale=0.33] %[x={10.0pt},y={10.0pt}]
+
+\node[statep, initial, initial text={}, initial where=above] (s0q0) 
+%[label={[yshift=-1.1cm,xshift=0cm]\scriptsize $\{q_0\}$},font=\scriptsize] {$\langle s_0,q_0\rangle$}; 
+[font=\scriptsize] {$\langle s_0,q_0\rangle$}; 
+\node[statep,  initial, initial text={}, initial where=above] (s0q1) 
+%[below = 0.6cm of s0q0,label={[yshift=-1.1cm,xshift=0cm]\scriptsize $\{q_1\}$},font=\scriptsize] {$\langle s_0,q_1\rangle$}; 
+[below = 0.6cm of s0q0,font=\scriptsize] {$\langle s_0,q_1\rangle$}; 
+
+\node[statep] (s1q0) 
+%[left = 0.4cm of s0q0,label={[yshift=-1.1cm,xshift=0cm]\scriptsize $\{q_0\}$},font=\scriptsize] {$\langle s_1,q_0\rangle$}; 
+[left = 0.4cm of s0q0,font=\scriptsize] {$\langle s_1,q_0\rangle$}; 
+
+\node[statep] (s2q0) 
+%[right = 0.4cm of s0q0,label={[yshift=-1.1cm,xshift=0cm]\scriptsize $\{q_0\}$},font=\scriptsize] {$\langle s_2,q_0\rangle$}; 
+[right = 0.4cm of s0q0,font=\scriptsize] {$\langle s_2,q_0\rangle$}; 
+\node[statep] (s2q1) 
+%[below = 0.6cm of s2q0,label={[yshift=-1.1cm,xshift=0cm]\scriptsize $\{q_1\}$},font=\scriptsize] {$\langle s_2,q_1\rangle$}; 
+[below = 0.6cm of s2q0,font=\scriptsize] {$\langle s_2,q_1\rangle$}; 
+
+\path[->]      
+(s0q0) edge [bend left=15] node []{} (s1q0) 
+(s1q0) edge [bend left=15] node []{} (s0q0)  
+
+(s0q0) edge [bend left=15] node []{} (s2q0) 
+(s2q0) edge [bend left=15] node []{} (s0q0)  
+
+(s1q0) edge [bend right=5] node []{} (s0q1)
+(s2q0) edge [bend left=5] node []{} (s0q1)
+
+%(s0q0) edge [bend left=5,dashed] node []{} (s1q1)
+(s0q0) edge [bend right=5] node []{} (s2q1)
+
+%(s0q1) edge [bend left=5,dashed] node []{} (s1q1) 
+(s0q1) edge [bend left=15] node []{} (s2q1) 
+(s2q1) edge [bend left=15] node []{} (s0q1) 
+;    
+
+\end{tikzpicture} % pic 1
